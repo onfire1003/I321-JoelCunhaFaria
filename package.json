@@ -1,0 +1,28 @@
+{
+  "name": "i321-joelcunhafaria",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/onfire1003/I321-JoelCunhaFaria.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/onfire1003/I321-JoelCunhaFaria/issues"
+  },
+  "homepage": "https://github.com/onfire1003/I321-JoelCunhaFaria#readme",
+  "dependencies": {
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}
