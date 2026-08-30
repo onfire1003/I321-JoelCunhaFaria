@@ -7,24 +7,22 @@ modification date   :   24.08.2026
 -----------------------------------------------------------------------------------------------------------------------
 */
 const express = require("express");
-const router = require("./routes/router");
-
+const morgan = require('morgan');                       // Importe la libraire de log
+/*
+const errorHandler = require("./middleware/errorHandler"); // Importe le middleware pour gérer les erreurs
+const initDatabase = require("./config/db");           // Importe la fonction pour initialiser la base de données
+*/
 const app = express();
-const env = require('./config/env');
-const PORT = env.port;
 
-app.use(express.json());
+// Middleware
+app.use(morgan('dev'));                                //Active les logs en mode "dev"
+app.use(express.json());                               // Permet de lire le corps des requêtes en JSON
 
-app.use("/api", router);
 
-app.get('/', function (req, res) {
-    return res.status(200).json({
-        message: 'API active'
-    });
+// Root endpoint
+app.get("/", (req, res) => {
+    res.json({ message: "Welcome to the API" });      // Point d'entrée principal qui renvoie un message simple
 });
 
-app.listen(PORT, function () {
-    console.log('Server running on port ' + PORT);
-});
 
 module.exports = app;
