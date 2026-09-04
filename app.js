@@ -3,26 +3,39 @@
 file name           :   app.js
 author              :   Joel Cunha Faria
 creation date       :   24.08.2026
-modification date   :   24.08.2026
+modification date   :   04.09.2026
 -----------------------------------------------------------------------------------------------------------------------
 */
-const express = require("express");
-const morgan = require('morgan');                       // Importe la libraire de log
-/*
-const errorHandler = require("./middleware/errorHandler"); // Importe le middleware pour gérer les erreurs
-const initDatabase = require("./config/db");           // Importe la fonction pour initialiser la base de données
-*/
+const express = require('express');
+const morgan = require('morgan');
+const router = require('./routes/router');
+const swaggerUi = require('swagger-ui-express');
+const swaggerSpec = require('./config/swagger');
+
 const app = express();
 
-// Middleware
-app.use(morgan('dev'));                                //Active les logs en mode "dev"
-app.use(express.json());                               // Permet de lire le corps des requêtes en JSON
+app.use(morgan('dev'));
+app.use(express.json());
 
+// API routes
+app.use('/api/v1', router);
 
-// Root endpoint
-app.get("/", (req, res) => {
-    res.json({ message: "Welcome to the API" });      // Point d'entrée principal qui renvoie un message simple
+// Swagger UI
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+app.get('/docs/swagger.json', (req, res) => {
+    res.setHeader('Content-Type', 'application/json');
+    res.send(swaggerSpec);
 });
 
+// basic health-check
+app.get('/', (req, res) => res.json({ status: 'ok' }));
+
+// error handler (fallback)
+app.use((err, req, res, next) => {
+    console.error(err);
+    if (!res.headersSent) {
+        res.status(err.status || 500).json({ error: err.message || 'Internal Server Error' });
+    } else next(err);
+});
 
 module.exports = app;

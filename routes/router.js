@@ -1,18 +1,16 @@
 /*
 -----------------------------------------------------------------------------------------------------------------------
-file name           :   server.js
+file name           :   router.js
 author              :   Joel Cunha Faria
 creation date       :   24.08.2026
 modification date   :   04.09.2026
 -----------------------------------------------------------------------------------------------------------------------
 */
-require('dotenv').config();
-const app = require('./app');
-const port = process.env.PORT || 3000;
+const express = require('express');
+const productsRouter = require('./products');
 
-app.listen(port, () => {
-    console.log(`Server listening on http://localhost:${port}`);
-    if (process.env.NODE_ENV !== 'production') {
-        console.log(`Swagger UI: http://localhost:${port}/docs`);
-    }
-});
+const router = express.Router();
+
+router.use('/products', productsRouter);
+
+module.exports = router;
