@@ -1,6 +1,6 @@
 /*
 -----------------------------------------------------------------------------------------------------------------------
-file name           :   product.js
+file name           :   pizza.js
 author              :   Joel Cunha Faria
 creation date       :   24.08.2026
 modification date   :   04.09.2026
@@ -8,7 +8,7 @@ modification date   :   04.09.2026
 */
 const db = require('../config/database');
 
-class Product {
+class Pizza {
     static create({ name, description, imageUrl, price }) {
         const sql = `INSERT INTO products (name, description, imageUrl, price, created_at, updated_at)
                  VALUES (?, ?, ?, ?, datetime('now'), datetime('now'))`;
@@ -18,7 +18,7 @@ class Product {
             db.run(sql, params, function (err) {
                 if (err) return reject(err);
                 // fetch created row
-                Product.findById(this.lastID).then(resolve).catch(reject);
+                Pizza.findById(this.lastID).then(resolve).catch(reject);
             });
         });
     }
@@ -59,7 +59,7 @@ class Product {
             db.run(sql, params, function (err) {
                 if (err) return reject(err);
                 if (this.changes === 0) return resolve(null);
-                Product.findById(id).then(resolve).catch(reject);
+                Pizza.findById(id).then(resolve).catch(reject);
             });
         });
     }
@@ -75,4 +75,4 @@ class Product {
     }
 }
 
-module.exports = Product;
+module.exports = Pizza;

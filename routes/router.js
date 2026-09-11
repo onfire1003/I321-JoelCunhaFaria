@@ -7,10 +7,10 @@ modification date   :   04.09.2026
 -----------------------------------------------------------------------------------------------------------------------
 */
 const express = require('express');
-const productsRouter = require('./products');
+const pizzasRouter = require('./pizzas');
 
 const router = express.Router();
 
-router.use('/products', productsRouter);
+router.use('/pizzas', pizzasRouter);
 
 module.exports = router;

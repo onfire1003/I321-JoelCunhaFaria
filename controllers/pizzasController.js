@@ -1,13 +1,13 @@
 /*
 -----------------------------------------------------------------------------------------------------------------------
-file name           :   productController.js
+file name           :   pizzasController.js
 author              :   Joel Cunha Faria
 creation date       :   24.08.2026
 modification date   :   04.09.2026
 -----------------------------------------------------------------------------------------------------------------------
 */
 const { validationResult } = require('express-validator');
-const Product = require('../models/Product');
+const Product = require('../models/pizza');
 
 /**
  * Controller functions use Express (req, res) signatures and
