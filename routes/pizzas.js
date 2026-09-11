@@ -42,7 +42,7 @@ const router = express.Router();
  *                 type: number
  *     responses:
  *       201:
- *         description: Product created
+ *         description: Pizza created
  *       400:
  *         description: Invalid input
  */
@@ -94,7 +94,7 @@ const router = express.Router();
  *       404:
  *         description: pizza not found
  *   delete:
- *     summary: Delete a product by ID
+ *     summary: Delete a pizza by ID
  *     parameters:
  *       - in: path
  *         name: id

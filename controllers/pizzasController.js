@@ -7,7 +7,7 @@ modification date   :   04.09.2026
 -----------------------------------------------------------------------------------------------------------------------
 */
 const { validationResult } = require('express-validator');
-const Product = require('../models/pizza');
+const Pizza = require('../models/pizza');
 
 /**
  * Controller functions use Express (req, res) signatures and
@@ -24,7 +24,7 @@ exports.create = async (req, res, next) => {
         }
 
         const { name, description, imageUrl, price } = req.body;
-        const created = await Product.create({ name, description, imageUrl, price });
+        const created = await Pizza.create({ name, description, imageUrl, price });
         // 201 Created
         return res.status(201).json(created);
     } catch (err) {
@@ -34,9 +34,9 @@ exports.create = async (req, res, next) => {
 
 exports.findAll = async (req, res, next) => {
     try {
-        const products = await Product.findAll();
+        const pizzas = await Pizza.findAll();
         // 200 OK
-        return res.status(200).json(products);
+        return res.status(200).json(pizzas);
     } catch (err) {
         next(err);
     }
@@ -45,12 +45,12 @@ exports.findAll = async (req, res, next) => {
 exports.findOne = async (req, res, next) => {
     try {
         const id = Number(req.params.id);
-        if (Number.isNaN(id)) return res.status(400).json({ error: 'Invalid product id' });
+        if (Number.isNaN(id)) return res.status(400).json({ error: 'Invalid pizza id' });
 
-        const product = await Product.findById(id);
-        if (!product) return res.status(404).json({ error: 'Product not found' }); // 404 Not Found
+        const pizza = await Pizza.findById(id);
+        if (!pizza) return res.status(404).json({ error: 'Pizza not found' }); // 404 Not Found
 
-        return res.status(200).json(product);
+        return res.status(200).json(pizza);
     } catch (err) {
         next(err);
     }
@@ -65,11 +65,11 @@ exports.update = async (req, res, next) => {
         }
 
         const id = Number(req.params.id);
-        if (Number.isNaN(id)) return res.status(400).json({ error: 'Invalid product id' });
+        if (Number.isNaN(id)) return res.status(400).json({ error: 'Invalid pizza0 id' });
 
         const { name, description, imageUrl, price } = req.body;
-        const updated = await Product.update(id, { name, description, imageUrl, price });
-        if (!updated) return res.status(404).json({ error: 'Product not found' }); // 404 Not Found
+        const updated = await Pizza.update(id, { name, description, imageUrl, price });
+        if (!updated) return res.status(404).json({ error: 'Pizza not found' }); // 404 Not Found
 
         return res.status(200).json(updated);
     } catch (err) {
@@ -80,10 +80,10 @@ exports.update = async (req, res, next) => {
 exports.delete = async (req, res, next) => {
     try {
         const id = Number(req.params.id);
-        if (Number.isNaN(id)) return res.status(400).json({ error: 'Invalid product id' });
+        if (Number.isNaN(id)) return res.status(400).json({ error: 'Invalid pizza id' });
 
-        const deleted = await Product.delete(id);
-        if (deleted === 0) return res.status(404).json({ error: 'Product not found' });
+        const deleted = await Pizza.delete(id);
+        if (deleted === 0) return res.status(404).json({ error: 'Pizza not found' });
 
         // 204 No Content on successful delete
         return res.status(204).send();
