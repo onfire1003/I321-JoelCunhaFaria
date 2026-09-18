@@ -3,7 +3,7 @@
 file name           :   database.js
 author              :   Joel Cunha Faria
 creation date       :   24.08.2026
-modification date   :   04.09.2026
+modification date   :   11.09.2026
 -----------------------------------------------------------------------------------------------------------------------
 */
 const sqlite3 = require('sqlite3').verbose();
@@ -20,7 +20,7 @@ const db = new sqlite3.Database(dbFile, (err) => {
     console.log('Connected to sqlite database:', dbFile);
 });
 
-// Initialize pizzas table if not exists
+// Initialize pizzas and ingredients table if not exists
 const initSql = `
 CREATE TABLE IF NOT EXISTS pizzas (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -32,12 +32,9 @@ CREATE TABLE IF NOT EXISTS pizzas (
     updated_at TEXT DEFAULT (datetime('now'))
 );
 
-
 CREATE TABLE IF NOT EXISTS ingredients (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT NOT NULL,
-    description TEXT,
-    imageUrl TEXT,
     price REAL NOT NULL,
     created_at TEXT DEFAULT (datetime('now')),
     updated_at TEXT DEFAULT (datetime('now'))
@@ -45,7 +42,7 @@ CREATE TABLE IF NOT EXISTS ingredients (
 `;
 
 db.serialize(() => {
-    db.run(initSql, (err) => {
+    db.exec(initSql, (err) => {
         if (err) {
             console.error('Failed to initialize database', err);
             process.exit(1);
